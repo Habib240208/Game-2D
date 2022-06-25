@@ -19,7 +19,7 @@ public class CharacterController2D : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
 
         //Get a reference to the Animator
-        animator = GetComponent<Animator>(); 
+        animator = GetComponentInChildren<Animator>();
     }
 
     //Update is called once per frame
@@ -28,6 +28,7 @@ public class CharacterController2D : MonoBehaviour
 
         // Is the player touching the ground ?
         grounded = groundCheck.IsTouchingLayers(groundLayer);
+        animator.SetBool("jumping", !grounded);
 
         // Only jump if the player is grounded and has pressed the Space bar
         Debug.Log(grounded);
@@ -36,6 +37,7 @@ public class CharacterController2D : MonoBehaviour
          
         //Get Input
         float x = Input.GetAxisRaw("Horizontal");
+        animator.SetBool("running", x != 0);
 
         //Update the player's velocity
         Vector2 targetVelocity = new Vector2(x * speed, rb2d.velocity.y);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterController2D : MonoBehaviour
 {
@@ -30,7 +31,6 @@ public class CharacterController2D : MonoBehaviour
         grounded = groundCheck.IsTouchingLayers(groundLayer);
 
         // Only jump if the player is grounded and has pressed the Space bar
-        Debug.Log(grounded);
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
             rb2d.AddForce(new Vector2(0f, jumpForce));
          
@@ -67,5 +67,32 @@ public class CharacterController2D : MonoBehaviour
 
         transform.localScale = scale;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Star")
+        {
+            //Destory the star
+            Destroy(collision.gameObject);
+            //Changethe player's tag
+            gameObject.tag = "PowerUp";
+            //Change the player's color
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
+            //Start the coroutine
+            StartCoroutine("reset");
+        }
+        if(collision.tag =="TP2")
+            SceneManager.LoadScene("Lvl3");
+        if (collision.tag == "TP")
+            SceneManager.LoadScene("Lvl2");
 
+    }
+    IEnumerator reset()
+    {
+        //Declare the waiting time
+        yield return new WaitForSeconds(5f);
+       //Change the player's tag back
+       gameObject.tag = "Player";
+        //Change the player's color back
+       gameObject.GetComponent<Renderer>().material.color = Color.white;
+    }
 }

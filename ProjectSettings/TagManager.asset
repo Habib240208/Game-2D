@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - coin
+  - Star
+  - PowerUp
+  - TP
+  - TP2
   layers:
   - Default
   - TransparentFX
@@ -47,3 +52,12 @@ TagManager:
   - name: Player
     uniqueID: 874489857
     locked: 0
+<<<<<<< Updated upstream
+=======
+  - name: Trap
+    uniqueID: 229682765
+    locked: 0
+  - name: Canvas
+    uniqueID: 4172861439
+    locked: 0
+>>>>>>> Stashed changes
